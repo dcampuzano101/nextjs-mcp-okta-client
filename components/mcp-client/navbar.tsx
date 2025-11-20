@@ -66,7 +66,7 @@ export function Navbar({
                 variant="outline"
                 size="sm"
                 onClick={onClearToken}
-                className="gap-2 border-white/20 text-white hover:bg-white/10"
+                className="gap-2 border-mulesoft-light text-mulesoft-light hover:bg-mulesoft-light/10"
               >
                 <Trash2 className="h-4 w-4" />
                 Clear Token
