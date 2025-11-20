@@ -4,48 +4,58 @@
 
 @layer base {
   :root {
+    /* MuleSoft Official Brand Colors */
+    --mulesoft: 233 100% 15%;        /* #00034B - MuleSoft Dark Navy */
+    --mulesoft-light: 197 95% 43%;   /* #0D9DDA - MuleSoft Light Blue */
+    --mulesoft-light-hover: 197 95% 38%;  /* Darker variant for hover */
+    
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --primary: 197 95% 43%;  /* MuleSoft Light Blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 233 100% 15%;  /* MuleSoft Dark Navy */
+    --secondary-foreground: 0 0% 100%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 197 95% 90%;  /* Very light blue */
+    --accent-foreground: 233 100% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 197 95% 43%;  /* MuleSoft Light Blue */
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    /* MuleSoft Official Brand Colors - Dark Mode */
+    --mulesoft: 233 100% 15%;        /* #00034B - MuleSoft Dark Navy */
+    --mulesoft-light: 197 95% 50%;   /* Brighter for dark mode */
+    --mulesoft-light-hover: 197 95% 45%;
+    
+    --background: 233 100% 8%;  /* Very dark navy */
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 233 100% 10%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 233 100% 10%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --primary: 197 95% 50%;  /* MuleSoft Light Blue (brighter) */
+    --primary-foreground: 233 100% 15%;
+    --secondary: 233 100% 12%;  /* Dark navy variant */
+    --secondary-foreground: 197 95% 80%;
+    --muted: 233 50% 15%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 233 50% 12%;
+    --accent-foreground: 197 95% 80%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --border: 233 50% 20%;
+    --input: 233 50% 20%;
+    --ring: 197 95% 50%;  /* MuleSoft Light Blue */
   }
 }
 

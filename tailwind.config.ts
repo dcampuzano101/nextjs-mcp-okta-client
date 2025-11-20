@@ -43,6 +43,11 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        mulesoft: {
+          DEFAULT: "hsl(var(--mulesoft))",  /* #00034B - Dark Navy */
+          light: "hsl(var(--mulesoft-light))",  /* #0D9DDA - Light Blue */
+          "light-hover": "hsl(var(--mulesoft-light-hover))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -17,12 +17,12 @@ export function ResponseViewer({ response }: ResponseViewerProps) {
 
   if (!response) {
     return (
-      <Card>
+      <Card className="border-mulesoft">
         <CardHeader>
-          <CardTitle>Response</CardTitle>
+          <CardTitle className="text-mulesoft">Response</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-mulesoft/70">
             No response yet. Click "Run" to send a request.
           </p>
         </CardContent>
@@ -45,10 +45,10 @@ export function ResponseViewer({ response }: ResponseViewerProps) {
   };
 
   return (
-    <Card>
+    <Card className="border-mulesoft">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>Response</CardTitle>
+          <CardTitle className="text-mulesoft">Response</CardTitle>
           <div className="flex items-center gap-2">
             {response.status && (
               <Badge variant={getStatusColor(response.status)}>

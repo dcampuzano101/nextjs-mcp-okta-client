@@ -159,16 +159,14 @@ export function ToolForm({ tool, onSubmit, isLoading }: ToolFormProps) {
     if (property.type === "number" || property.type === "integer") {
       return (
         <div key={key} className="space-y-2">
-          <Label htmlFor={key}>
+          <Label htmlFor={key} className="text-mulesoft">
             {key} {isRequired && <span className="text-destructive">*</span>}
-            <span className="text-xs text-muted-foreground ml-2">
+            <span className="text-xs text-mulesoft/60 ml-2">
               ({property.type})
             </span>
           </Label>
           {property.description && (
-            <p className="text-xs text-muted-foreground">
-              {property.description}
-            </p>
+            <p className="text-xs text-mulesoft/60">{property.description}</p>
           )}
           <Input
             id={key}
@@ -236,11 +234,13 @@ export function ToolForm({ tool, onSubmit, isLoading }: ToolFormProps) {
   };
 
   return (
-    <Card>
+    <Card className="border-mulesoft">
       <CardHeader>
-        <CardTitle className="text-lg">Tool: {tool.name}</CardTitle>
+        <CardTitle className="text-lg text-mulesoft">
+          Tool: {tool.name}
+        </CardTitle>
         {tool.description && (
-          <p className="text-sm text-muted-foreground">{tool.description}</p>
+          <p className="text-sm text-mulesoft/70">{tool.description}</p>
         )}
       </CardHeader>
       <CardContent>

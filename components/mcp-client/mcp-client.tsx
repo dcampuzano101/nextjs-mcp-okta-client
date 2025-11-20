@@ -167,10 +167,15 @@ export function MCPClient() {
         {/* Right: Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Endpoint URL */}
-          <div className="p-4 border-b">
+          <div className="p-4 border-b border-mulesoft">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="endpoint">MCP Endpoint</Label>
+                <Label
+                  htmlFor="endpoint"
+                  className="text-mulesoft font-semibold"
+                >
+                  MCP Endpoint
+                </Label>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -206,30 +211,30 @@ export function MCPClient() {
           <div className="flex-1 overflow-auto">
             <div className="p-4">
               {!isAuthenticated ? (
-                <Card>
+                <Card className="border-mulesoft">
                   <CardContent className="p-6">
                     <div className="text-center space-y-2">
-                      <p className="text-lg font-medium">
+                      <p className="text-lg font-medium text-mulesoft">
                         Click "Authorize" to get started
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-mulesoft/70">
                         You need to authenticate with Okta to access MCP tools
                       </p>
                     </div>
                   </CardContent>
                 </Card>
               ) : !selectedTool ? (
-                <Card>
+                <Card className="border-mulesoft">
                   <CardContent className="p-6">
                     <div className="text-center space-y-2">
-                      <p className="text-lg font-medium">
+                      <p className="text-lg font-medium text-mulesoft">
                         {tools.length > 0
                           ? "Select a tool to get started"
                           : isLoadingTools
                           ? "Loading tools..."
                           : "No tools available"}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-mulesoft/70">
                         {tools.length > 0
                           ? "Choose a tool from the sidebar to see its parameters"
                           : isLoadingTools

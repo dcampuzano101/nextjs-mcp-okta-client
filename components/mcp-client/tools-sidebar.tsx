@@ -39,11 +39,11 @@ export function ToolsSidebar({
   }, [searchQuery, tools]);
 
   return (
-    <div className="w-80 border-r bg-muted/30 flex flex-col h-full">
+    <div className="w-80 border-r border-mulesoft bg-muted/30 flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b">
+      <div className="p-4 border-b border-mulesoft">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-sm">
+          <h2 className="font-semibold text-sm text-mulesoft">
             Tools {tools.length > 0 && `(${tools.length})`}
           </h2>
         </div>
@@ -64,11 +64,11 @@ export function ToolsSidebar({
       <ScrollArea className="flex-1">
         <div className="p-2">
           {isLoading ? (
-            <div className="p-4 text-center text-sm text-muted-foreground">
+            <div className="p-4 text-center text-sm text-mulesoft/70">
               Loading tools...
             </div>
           ) : filteredTools.length === 0 ? (
-            <div className="p-4 text-center text-sm text-muted-foreground">
+            <div className="p-4 text-center text-sm text-mulesoft/70">
               {searchQuery ? "No tools found" : "No tools available"}
             </div>
           ) : (
