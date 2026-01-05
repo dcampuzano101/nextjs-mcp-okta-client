@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "@/hooks/use-auth";
+import { useMultiUserAuth } from "@/hooks/use-multi-user-auth";
 import { ResponseState, MCPTool } from "@/types";
 import {
   listMCPTools,
@@ -9,6 +9,7 @@ import {
   initializeMCPSession,
 } from "@/lib/mcp/client";
 import { Navbar } from "./navbar";
+import { JWTDisplayPanel } from "./jwt-display-panel";
 import { ToolsSidebar } from "./tools-sidebar";
 import { ToolForm } from "./tool-form";
 import { ResponseViewer } from "./response-viewer";
@@ -21,12 +22,17 @@ import { Bookmark } from "lucide-react";
 
 export function MCPClient() {
   const {
-    tokens,
+    sessions,
+    activeUserId,
+    activeSession,
+    activeToken,
     isAuthenticated,
     isLoading: authLoading,
     authorize,
-    clearTokens,
-  } = useAuth();
+    switchUser,
+    removeUser,
+    clearAllUsers,
+  } = useMultiUserAuth();
 
   // MCP State
   const [endpoint, setEndpoint] = useState(
@@ -39,15 +45,15 @@ export function MCPClient() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [showEndpointManager, setShowEndpointManager] = useState(false);
 
-  // Fetch tools when authenticated
+  // Fetch tools when authenticated or when active user changes
   useEffect(() => {
-    if (isAuthenticated && endpoint) {
+    if (isAuthenticated && endpoint && activeToken) {
       fetchTools();
     } else {
       setTools([]);
       setSelectedTool(null);
     }
-  }, [isAuthenticated, endpoint]);
+  }, [isAuthenticated, endpoint, activeUserId]); // Re-fetch when switching users
 
   const fetchTools = async () => {
     if (!endpoint) return;
@@ -56,7 +62,7 @@ export function MCPClient() {
     setResponse(null);
 
     try {
-      console.log("🔌 Initializing MCP session...");
+      console.log("🔌 Initializing MCP session for user:", activeSession?.email);
 
       // Step 1: Initialize MCP session
       const initResult = await initializeMCPSession(endpoint);
@@ -106,8 +112,24 @@ export function MCPClient() {
     setResponse(null);
   };
 
-  const handleClearToken = () => {
-    clearTokens();
+  const handleSwitchUser = (userId: string) => {
+    switchUser(userId);
+    // Clear MCP state when switching users
+    setResponse(null);
+    setTools([]);
+    setSelectedTool(null);
+  };
+
+  const handleRemoveUser = (userId: string) => {
+    removeUser(userId);
+    // Clear MCP state
+    setResponse(null);
+    setTools([]);
+    setSelectedTool(null);
+  };
+
+  const handleClearAll = () => {
+    clearAllUsers();
     // Clear all MCP state
     setResponse(null);
     setTools([]);
@@ -145,12 +167,19 @@ export function MCPClient() {
     <div className="h-screen flex flex-col bg-background">
       {/* Top Navbar */}
       <Navbar
-        isAuthenticated={isAuthenticated}
-        userEmail={tokens?.userEmail}
+        sessions={sessions}
+        activeUserId={activeUserId}
         onAuthorize={authorize}
-        onClearToken={handleClearToken}
+        onSwitchUser={handleSwitchUser}
+        onRemoveUser={handleRemoveUser}
+        onClearAll={handleClearAll}
         isLoading={authLoading}
       />
+
+      {/* JWT Display Panel - Show when authenticated */}
+      {isAuthenticated && activeSession && (
+        <JWTDisplayPanel session={activeSession} />
+      )}
 
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden">
@@ -207,9 +236,9 @@ export function MCPClient() {
             )}
           </div>
 
-          {/* Tool Form or Empty State */}
+          {/* Tool Form or Empty State + Response */}
           <div className="flex-1 overflow-auto">
-            <div className="p-4">
+            <div className="p-4 space-y-4">
               {!isAuthenticated ? (
                 <Card className="border-mulesoft">
                   <CardContent className="p-6">
@@ -251,17 +280,15 @@ export function MCPClient() {
                   isLoading={isExecuting}
                 />
               )}
+
+              {/* Response Viewer - Now inside scrollable area */}
+              {response && (
+                <div className="border-t pt-4">
+                  <ResponseViewer response={response} />
+                </div>
+              )}
             </div>
           </div>
-
-          {/* Response Viewer */}
-          {response && (
-            <div className="border-t">
-              <div className="p-4">
-                <ResponseViewer response={response} />
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

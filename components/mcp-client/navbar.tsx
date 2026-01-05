@@ -3,23 +3,31 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Lock, Unlock, Trash2, User } from "lucide-react";
+import { Lock, Unlock, Trash2 } from "lucide-react";
+import { UserSession } from "@/types";
+import { UserSwitcher } from "./user-switcher";
 
 interface NavbarProps {
-  isAuthenticated: boolean;
-  userEmail?: string;
+  sessions: UserSession[];
+  activeUserId: string | null;
   onAuthorize: () => void;
-  onClearToken: () => void;
+  onSwitchUser: (userId: string) => void;
+  onRemoveUser: (userId: string) => void;
+  onClearAll: () => void;
   isLoading?: boolean;
 }
 
 export function Navbar({
-  isAuthenticated,
-  userEmail,
+  sessions,
+  activeUserId,
   onAuthorize,
-  onClearToken,
+  onSwitchUser,
+  onRemoveUser,
+  onClearAll,
   isLoading,
 }: NavbarProps) {
+  const isAuthenticated = sessions.length > 0 && !!activeUserId;
+
   return (
     <div className="border-b border-white/10 bg-mulesoft">
       <div className="flex items-center justify-between px-6 py-3">
@@ -56,21 +64,27 @@ export function Navbar({
         <div className="flex items-center gap-3">
           {isAuthenticated ? (
             <>
-              {userEmail && (
-                <div className="flex items-center gap-2 text-sm text-white/80">
-                  <User className="h-4 w-4" />
-                  <span>{userEmail}</span>
-                </div>
+              {/* User Switcher */}
+              <UserSwitcher
+                sessions={sessions}
+                activeUserId={activeUserId}
+                onSwitchUser={onSwitchUser}
+                onAddUser={onAuthorize}
+                onRemoveUser={onRemoveUser}
+              />
+              
+              {/* Clear All Button */}
+              {sessions.length > 1 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onClearAll}
+                  className="gap-2 bg-mulesoft-light text-white hover:bg-mulesoft-light/90 border-mulesoft-light"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Clear All
+                </Button>
               )}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onClearToken}
-                className="gap-2 border-mulesoft-light text-mulesoft-light hover:bg-mulesoft-light/10"
-              >
-                <Trash2 className="h-4 w-4" />
-                Clear Token
-              </Button>
             </>
           ) : (
             <Button

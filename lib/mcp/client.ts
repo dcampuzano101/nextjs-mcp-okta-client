@@ -1,5 +1,5 @@
 import { MCPRequest, MCPResponse, ResponseState, MCPTool } from "@/types";
-import { TokenStorage } from "@/lib/oauth/token-storage";
+import { MultiUserStorage } from "@/lib/oauth/multi-user-storage";
 
 // Store MCP session ID for maintaining session across requests
 let mcpSessionId: string | null = null;
@@ -24,16 +24,16 @@ export async function callMCPEndpoint(
   const startTime = Date.now();
 
   try {
-    // Get access token from storage
-    const tokens = TokenStorage.get();
-    const accessToken =
-      tokens && !TokenStorage.isExpired() ? tokens.accessToken : undefined;
+    // Get access token from active user session
+    const activeSession = MultiUserStorage.getActiveSession();
+    const accessToken = activeSession?.tokens.accessToken;
 
     console.log("📡 Calling MCP endpoint via proxy:", {
       endpoint: endpoint.substring(0, 50) + "...",
       method: mcpRequest.method,
       hasToken: !!accessToken,
       hasSessionId: !!mcpSessionId,
+      user: activeSession?.email,
     });
 
     // Call our Next.js API proxy instead of directly calling the MCP endpoint

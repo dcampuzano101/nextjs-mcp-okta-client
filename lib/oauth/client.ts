@@ -38,6 +38,7 @@ export async function startOAuthFlow(config: OAuthConfig): Promise<void> {
   authUrl.searchParams.set("code_challenge", codeChallenge);
   authUrl.searchParams.set("code_challenge_method", "S256");
   authUrl.searchParams.set("state", state);
+  authUrl.searchParams.set("prompt", "login"); // Force login screen for multi-user
 
   console.log(
     "🔗 Redirecting to:",

@@ -17,6 +17,37 @@ export interface TokenData {
   expiresAt: number;
   userEmail?: string;
   tokenType: string;
+  userId?: string; // Unique identifier for multi-user support
+}
+
+// JWT Decoded Claims
+export interface JWTClaims {
+  // Standard claims
+  sub: string; // Subject (user ID)
+  iss: string; // Issuer
+  aud: string | string[]; // Audience
+  exp: number; // Expiration time
+  iat: number; // Issued at
+  
+  // Okta-specific claims
+  email?: string;
+  name?: string;
+  groups?: string[];
+  scp?: string[]; // Scopes (in access token)
+  scope?: string; // Scopes as string
+  
+  // Additional claims
+  [key: string]: any;
+}
+
+// Multi-user session
+export interface UserSession {
+  userId: string;
+  email: string;
+  displayName: string;
+  tokens: TokenData;
+  claims: JWTClaims;
+  addedAt: number;
 }
 
 // MCP Types (JSON-RPC 2.0 format)
