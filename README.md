@@ -3,21 +3,23 @@
 A modern, Postman-like MCP (Model Context Protocol) client with OAuth2 authentication support. Built with Next.js, TypeScript, and `oauth4webapi`.
 
 ![MCP Client](https://img.shields.io/badge/OAuth2-PKCE-blue)
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 
 ## ✨ Features
 
 - 🔐 **OAuth2 Authorization Code Flow with PKCE** - Secure authentication
+- 👥 **Multi-User Support** - Manage multiple authenticated users simultaneously
+- 🔄 **User Switching** - Seamlessly switch between authenticated users
 - 🎯 **Provider Agnostic** - Works with Okta, Auth0, or any OAuth2 provider
 - 🔄 **Token Management** - View, refresh, and clear tokens easily
 - 👤 **User Email Tracking** - Displays authenticated user email
 - 📝 **Request Builder** - HTTP method selector and URL input
 - 📨 **MCP Message Editor** - JSON editor for MCP requests
+- 🛠️ **MCP Tools** - Browse and execute available MCP tools
 - 📊 **Response Viewer** - Pretty-printed JSON responses with status codes
 - ⏱️ **Performance Metrics** - Response time tracking
 - 📋 **Copy to Clipboard** - Easy response copying
-- 🎨 **Modern UI** - Built with Shadcn/ui components
+- 🎨 **Modern UI** - Built with Shadcn/ui components and MuleSoft branding
 
 ## 🚀 Quick Start
 
@@ -30,10 +32,12 @@ A modern, Postman-like MCP (Model Context Protocol) client with OAuth2 authentic
   - **Grant Types**: Authorization Code with PKCE
   - **Redirect URI**: `http://localhost:3000/api/auth/callback`
 
+> 📘 **Need help setting up Okta?** See the [Okta OAuth2 Setup Guide](https://docs.google.com/document/d/1vAugJAp8Jz7tRSNICyfzU-EHGn6xMGIaDNA_k_B5Ybw/edit?usp=sharing) by Vishwas Nallabelli
+
 ### Installation
 
 ```bash
-# Dependencies are already installed
+# Install dependencies
 npm install
 
 # Start the development server
@@ -52,17 +56,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 # OAuth Configuration
 NEXT_PUBLIC_OAUTH_REDIRECT_URI=http://localhost:3000/api/auth/callback
 
-# Okta Configuration
-NEXT_PUBLIC_OKTA_ISSUER=https://trial-3882279.okta.com/oauth2/default
-NEXT_PUBLIC_OKTA_AUTH_ENDPOINT=https://trial-3882279.okta.com/oauth2/default/v1/authorize
-NEXT_PUBLIC_OKTA_TOKEN_ENDPOINT=https://trial-3882279.okta.com/oauth2/default/v1/token
+# Okta Configuration (Update with your Okta domain and credentials)
+NEXT_PUBLIC_OKTA_ISSUER=https://YOUR-OKTA-DOMAIN.okta.com/oauth2/default
+NEXT_PUBLIC_OKTA_AUTH_ENDPOINT=https://YOUR-OKTA-DOMAIN.okta.com/oauth2/default/v1/authorize
+NEXT_PUBLIC_OKTA_TOKEN_ENDPOINT=https://YOUR-OKTA-DOMAIN.okta.com/oauth2/default/v1/token
 NEXT_PUBLIC_OKTA_CLIENT_ID=your-okta-client-id-here  # ← UPDATE THIS!
 
 # ⚠️ Client Secret (SERVER-SIDE ONLY - DO NOT use NEXT_PUBLIC_ prefix!)
 OKTA_CLIENT_SECRET=your-okta-client-secret-here  # ← UPDATE THIS!
 
 # Default MCP Endpoint
-NEXT_PUBLIC_DEFAULT_MCP_ENDPOINT=https://agent-network-ingress-gw-205q5y.s7le3r.usa-e2.cloudhub.io/crm-mcp/
+NEXT_PUBLIC_DEFAULT_MCP_ENDPOINT=https://your-mcp-endpoint-here/
 
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -210,14 +214,13 @@ npm run lint
 
 ## 🤔 Why oauth4webapi?
 
-See [LIBRARY_COMPARISON.md](./LIBRARY_COMPARISON.md) for a detailed comparison with Okta-Auth-JS.
+`oauth4webapi` is a lightweight, standards-compliant OAuth 2.0 library that offers:
 
-**TL;DR**: `oauth4webapi` is:
-
-- ✅ Lighter (20KB vs 100KB)
-- ✅ Provider-agnostic
+- ✅ Lighter (20KB vs 100KB+ for provider-specific SDKs)
+- ✅ Provider-agnostic (works with any OAuth2 provider)
 - ✅ More control over token management
 - ✅ Perfect for developer tools like this
+- ✅ Full PKCE support for security
 
 ## 🔄 Token Management
 
@@ -307,8 +310,4 @@ Built with ❤️ using:
 
 ---
 
-**Need help?** Check out:
-
-- [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) - Detailed architecture
-- [LIBRARY_COMPARISON.md](./LIBRARY_COMPARISON.md) - Library comparison
-- [QUICK_START.md](./QUICK_START.md) - Setup guide
+**Need help?** Open an issue or check the inline code documentation for implementation details.
